@@ -11,8 +11,8 @@ fn main() -> Result<()> {
     disable_color_output(&args);
 
     match args.subcommand() {
-        None => {
-            let total_warnings = dotenv_linter::check(&args, &current_dir)?;
+        Some(("check", check_args)) => {
+            let total_warnings = dotenv_linter::check(check_args, &current_dir)?;
 
             if total_warnings == 0 {
                 process::exit(0);

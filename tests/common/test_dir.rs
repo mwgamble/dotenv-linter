@@ -65,6 +65,28 @@ impl TestDir {
             .expect("convert directory to &str")
     }
 
+    /// Run the default CLI binary in this TestDir and check it succeeds.
+    ///
+    /// This method removes the TestDir when command has finished.
+    pub fn test_command_check_success<T>(self, expected_output: T)
+    where
+        T: Into<String>,
+    {
+        let args: &[&str; 1] = &["check"];
+        self.test_command_success_with_args(args, expected_output)
+    }
+
+    /// Run the default CLI binary in this TestDir and check it fails.
+    ///
+    /// This method removes the TestDir when command has finished.
+    pub fn test_command_check_fail<T>(self, expected_output: T)
+    where
+        T: Into<String>,
+    {
+        let args: &[&str; 1] = &["check"];
+        self.test_command_fail_with_args(args, expected_output)
+    }
+
     /// Run the default CLI binary, with command line arguments,
     /// in this TestDir and check it succeeds.
     ///

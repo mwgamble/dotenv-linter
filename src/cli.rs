@@ -9,13 +9,29 @@ pub fn new(current_dir: &OsStr) -> Command {
         .disable_help_subcommand(true)
         .propagate_version(true)
         .mut_arg("version", |a| a.short('v'))
+        .subcommands([check_command(current_dir), compare_command(), fix_command(current_dir), list_command()])
+}
+
+fn check_command<'a>(current_dir: &OsStr) -> Command {
+    Command::new("check")
         .args(common_args(current_dir))
-        .subcommands([compare_command(), fix_command(current_dir), list_command()])
+        .about("Checks files for issues")
+}
+
+fn fix_command(current_dir: &OsStr) -> Command {
+    Command::new("fix")
+        .args(common_args(current_dir))
+        .arg(
+            Arg::new("no-backup")
+                .long("no-backup")
+                .help("Prevents backing up .env files"),
+        )
+        .override_usage("dotenv-linter fix [OPTIONS] <input>...")
+        .about("Automatically fixes warnings")
 }
 
 fn compare_command<'a>() -> Command<'a> {
     Command::new("compare")
-        .visible_alias("c")
         .args(&vec![
             Arg::new("input")
                 .help("Files to compare")
@@ -30,22 +46,8 @@ fn compare_command<'a>() -> Command<'a> {
         .override_usage("dotenv-linter compare [OPTIONS] <input>...")
 }
 
-fn fix_command(current_dir: &OsStr) -> Command {
-    Command::new("fix")
-        .visible_alias("f")
-        .args(common_args(current_dir))
-        .arg(
-            Arg::new("no-backup")
-                .long("no-backup")
-                .help("Prevents backing up .env files"),
-        )
-        .override_usage("dotenv-linter fix [OPTIONS] <input>...")
-        .about("Automatically fixes warnings")
-}
-
 fn list_command<'a>() -> Command<'a> {
     Command::new("list")
-        .visible_alias("l")
         .override_usage("dotenv-linter list")
         .about("Shows list of available checks")
 }

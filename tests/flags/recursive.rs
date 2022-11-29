@@ -84,7 +84,7 @@ fn checks_without_recursive_flag() {
     let expected_output = check_output(&[("correct.env", &[])]);
 
     // incorrect file located in a subdirectory should not be checked
-    test_dir.test_command_success(expected_output);
+    test_dir.test_command_check_success(expected_output);
 }
 
 #[test]
