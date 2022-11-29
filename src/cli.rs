@@ -10,6 +10,7 @@ pub fn new(current_dir: &OsStr) -> Command {
         .propagate_version(true)
         .mut_arg("version", |a| a.short('v'))
         .arg(no_color_flag())
+        .arg(quiet_flag())
         .subcommands([check_command(current_dir), compare_command(), fix_command(current_dir), list_command()])
 }
 
@@ -33,15 +34,14 @@ fn fix_command(current_dir: &OsStr) -> Command {
 
 fn compare_command<'a>() -> Command<'a> {
     Command::new("compare")
-        .args(&vec![
+        .arg(
             Arg::new("input")
                 .help("Files to compare")
                 .multiple_occurrences(true)
                 .multiple_values(true)
                 .min_values(2)
                 .required(true),
-            quiet_flag(),
-        ])
+        )
         .about("Compares if files have the same keys")
         .override_usage("dotenv-linter compare [OPTIONS] <input>...")
 }
@@ -80,7 +80,6 @@ fn common_args(current_dir: &OsStr) -> Vec<Arg> {
             .short('r')
             .long("recursive")
             .help("Recursively searches and checks .env files"),
-        quiet_flag(),
     ]
 }
 
@@ -89,6 +88,7 @@ fn quiet_flag<'a>() -> Arg<'a> {
         .short('q')
         .long("quiet")
         .help("Doesn't display additional information")
+        .global(true)
 }
 
 fn no_color_flag<'a>() -> Arg<'a> {
@@ -96,6 +96,7 @@ fn no_color_flag<'a>() -> Arg<'a> {
         .long("no-color")
         .env("NO_COLOR") // TODO: add a test for this
         .help("Turns off the colored output")
+        .global(true)
 }
 
 #[cfg(test)]
