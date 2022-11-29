@@ -30,8 +30,6 @@ fn main() -> Result<()> {
             process::exit(0);
         }
         Some(("compare", compare_args)) => {
-            disable_color_output(compare_args);
-
             let warnings = dotenv_linter::compare(compare_args, &current_dir)?;
             if warnings.is_empty() {
                 process::exit(0);

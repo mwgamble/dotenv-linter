@@ -9,6 +9,7 @@ pub fn new(current_dir: &OsStr) -> Command {
         .disable_help_subcommand(true)
         .propagate_version(true)
         .mut_arg("version", |a| a.short('v'))
+        .arg(no_color_flag())
         .subcommands([check_command(current_dir), compare_command(), fix_command(current_dir), list_command()])
 }
 
@@ -39,7 +40,6 @@ fn compare_command<'a>() -> Command<'a> {
                 .multiple_values(true)
                 .min_values(2)
                 .required(true),
-            no_color_flag(),
             quiet_flag(),
         ])
         .about("Compares if files have the same keys")
@@ -80,7 +80,6 @@ fn common_args(current_dir: &OsStr) -> Vec<Arg> {
             .short('r')
             .long("recursive")
             .help("Recursively searches and checks .env files"),
-        no_color_flag(),
         quiet_flag(),
     ]
 }
@@ -95,6 +94,7 @@ fn quiet_flag<'a>() -> Arg<'a> {
 fn no_color_flag<'a>() -> Arg<'a> {
     Arg::new("no-color")
         .long("no-color")
+        .env("NO_COLOR") // TODO: add a test for this
         .help("Turns off the colored output")
 }
 
