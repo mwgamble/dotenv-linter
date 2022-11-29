@@ -13,7 +13,7 @@ fn problems() {
 Found 1 problem
 "#;
 
-    test_dir.test_command_fail_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_fail(expected_output);
 }
 
 #[test]
@@ -35,7 +35,7 @@ Checking .env_2
 Found 3 problems
 "#;
 
-    test_dir.test_command_fail_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_fail(expected_output);
 }
 
 #[test]
@@ -55,7 +55,7 @@ Checking .env2
 No problems found
 "#;
 
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -71,7 +71,7 @@ fn valid_double_quoted_multiline_value_test() {
 No problems found
 "#;
 
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -91,7 +91,7 @@ Checking .env_2
 Found 2 problems
 "#;
 
-    test_dir.test_command_fail_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_fail(expected_output);
 }
 
 #[test]
@@ -110,7 +110,7 @@ Checking .env_2
 Found 1 problem
 "#;
 
-    test_dir.test_command_fail_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_fail(expected_output);
 }
 
 #[test]
@@ -123,7 +123,7 @@ fn no_problems() {
 No problems found
 "#;
 
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -140,7 +140,7 @@ Checking .env_2
 No problems found
 "#;
 
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -150,7 +150,7 @@ fn no_files() {
     let expected_output = r#"Nothing to check
 "#;
 
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -163,7 +163,7 @@ fn quiet() {
 .env:4 UnorderedKey: The B key should go before the F key
 "#;
 
-    test_dir.test_command_fail_with_args(with_default_args(args), expected_output);
+    test_dir.test_command_fail_with_args(args, expected_output);
 }
 
 #[test]
@@ -174,7 +174,7 @@ fn quiet_no_problems() {
     let args = &["--quiet"];
     let expected_output = "";
 
-    test_dir.test_command_success_with_args(with_default_args(args), expected_output);
+    test_dir.test_command_success_with_args(args, expected_output);
 }
 
 #[test]
@@ -184,5 +184,5 @@ fn quiet_no_files() {
     let args = &["--quiet"];
     let expected_output = "";
 
-    test_dir.test_command_success_with_args(with_default_args(args), expected_output);
+    test_dir.test_command_success_with_args(args, expected_output);
 }

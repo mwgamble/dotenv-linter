@@ -5,7 +5,7 @@ fn exits_with_0_on_no_warnings() {
     let test_dir = TestDir::new();
     test_dir.create_testfile(".env", "FOO=bar\n");
     let expected_output = check_output(&[(".env", &[])]);
-    test_dir.test_command_success_with_args(with_default_args(&[]), expected_output);
+    test_dir.test_command_success(expected_output);
 }
 
 #[test]
@@ -13,8 +13,7 @@ fn checks_current_dir() {
     let testdir = TestDir::new();
     let testfile = testdir.create_testfile(".env", "FOO\n");
 
-    testdir.test_command_fail_with_args(
-        with_default_args(&[]),
+    testdir.test_command_fail(
         check_output(&[(
             testfile.shortname_as_str(),
             &[format!(
@@ -37,5 +36,5 @@ fn checks_current_dir_with_dot_arg() {
         &["test.env:1 LowercaseKey: The foo key should be in uppercase"],
     )]);
 
-    testdir.test_command_fail_with_args(with_default_args(args), expected_output);
+    testdir.test_command_fail_with_args(args, expected_output);
 }

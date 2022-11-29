@@ -29,9 +29,6 @@ pub fn check(args: &clap::ArgMatches, current_dir: &Path) -> Result<usize> {
     if lines_map.is_empty() {
         output.print_nothing_to_check();
 
-        #[cfg(feature = "update-informer")]
-        print_new_version_if_available(args);
-
         return Ok(0);
     }
 
@@ -56,9 +53,6 @@ pub fn check(args: &clap::ArgMatches, current_dir: &Path) -> Result<usize> {
             });
 
     output.print_total(warnings_count);
-
-    #[cfg(feature = "update-informer")]
-    print_new_version_if_available(args);
 
     Ok(warnings_count)
 }
@@ -318,45 +312,4 @@ fn is_multiline_start(val: &str) -> Option<QuoteType> {
     [QuoteType::Single, QuoteType::Double]
         .into_iter()
         .find(|quote_type| quote_type.is_quoted_value(val))
-}
-
-/// Prints information about the new version to `STDOUT` if a new version is available
-#[cfg(feature = "update-informer")]
-fn print_new_version_if_available(args: &clap::ArgMatches) {
-    use colored::*;
-    use update_informer::{registry, Check};
-
-    if args.is_present("not-check-updates") || args.is_present("quiet") {
-        return;
-    }
-
-    let pkg_name = env!("CARGO_PKG_NAME");
-
-    #[cfg(not(feature = "stub_check_version"))]
-    let current_version = env!("CARGO_PKG_VERSION");
-    #[cfg(feature = "stub_check_version")]
-    let current_version = "3.0.0";
-
-    #[cfg(not(feature = "stub_check_version"))]
-    let informer = update_informer::new(registry::Crates, pkg_name, current_version);
-    #[cfg(feature = "stub_check_version")]
-    let informer = update_informer::fake(registry::Crates, pkg_name, current_version, "3.1.1");
-
-    if let Ok(Some(version)) = informer.check_version() {
-        let msg = format!(
-            "A new release of {pkg_name} is available: v{current_version} -> {new_version}",
-            pkg_name = pkg_name.italic().cyan(),
-            current_version = current_version,
-            new_version = version.to_string().green()
-        );
-
-        let release_url = format!(
-            "https://github.com/{pkg_name}/{pkg_name}/releases/tag/{version}",
-            pkg_name = pkg_name,
-            version = version
-        )
-        .yellow();
-
-        println!("\n{msg}\n{url}", msg = msg, url = release_url);
-    }
 }

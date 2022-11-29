@@ -1,4 +1,4 @@
-use crate::common::*;
+use crate::common::TestDir;
 
 #[test]
 fn check_output_in_quiet_mode() {

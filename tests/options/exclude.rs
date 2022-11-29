@@ -1,4 +1,4 @@
-use crate::common::*;
+use crate::common::{check_output, TestDir};
 
 #[test]
 fn exclude_one_file() {
@@ -9,7 +9,7 @@ fn exclude_one_file() {
 "#;
 
     test_dir.test_command_success_with_args(
-        with_default_args(&["--exclude", testfile.as_str()]),
+        &["--exclude", testfile.as_str()],
         expected_output,
     );
 }
@@ -24,7 +24,7 @@ fn exclude_two_files() {
 "#;
 
     test_dir.test_command_success_with_args(
-        with_default_args(&["-e", testfile_1.as_str(), "-e", testfile_2.as_str()]),
+        &["-e", testfile_1.as_str(), "-e", testfile_2.as_str()],
         expected_output,
     );
 }
@@ -45,5 +45,5 @@ fn exclude_one_file_check_one_file() {
         .as_str()],
     )]);
 
-    test_dir.test_command_fail_with_args(with_default_args(args), expected_output);
+    test_dir.test_command_fail_with_args(args, expected_output);
 }

@@ -10,7 +10,6 @@ pub fn new(current_dir: &OsStr) -> Command {
         .propagate_version(true)
         .mut_arg("version", |a| a.short('v'))
         .args(common_args(current_dir))
-        .arg(not_check_updates_flag())
         .subcommands([compare_command(), fix_command(current_dir), list_command()])
 }
 
@@ -95,12 +94,6 @@ fn no_color_flag<'a>() -> Arg<'a> {
     Arg::new("no-color")
         .long("no-color")
         .help("Turns off the colored output")
-}
-
-fn not_check_updates_flag<'a>() -> Arg<'a> {
-    Arg::new("not-check-updates")
-        .long("not-check-updates")
-        .help("Doesn't check for updates")
 }
 
 #[cfg(test)]
