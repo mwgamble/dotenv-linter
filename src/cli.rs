@@ -100,6 +100,7 @@ fn no_color_flag<'a>() -> Arg<'a> {
 fn not_check_updates_flag<'a>() -> Arg<'a> {
     Arg::new("not-check-updates")
         .long("not-check-updates")
+        .env("DOTENV_LINTER_NOT_CHECK_UPDATES")
         .help("Doesn't check for updates")
 }
 
