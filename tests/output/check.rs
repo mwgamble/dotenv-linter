@@ -158,7 +158,7 @@ fn quiet() {
     let test_dir = TestDir::new();
     test_dir.create_testfile(".env", "abc=DEF\n\nF=BAR\nB=bbb\n");
 
-    let args = &["--quiet"];
+    let args = &["check", "--quiet"];
     let expected_output = r#".env:1 LowercaseKey: The abc key should be in uppercase
 .env:4 UnorderedKey: The B key should go before the F key
 "#;
@@ -171,7 +171,7 @@ fn quiet_no_problems() {
     let test_dir = TestDir::new();
     test_dir.create_testfile(".env", "ABC=DEF\nB=bbb\nF=BAR\n");
 
-    let args = &["--quiet"];
+    let args = &["check", "--quiet"];
     let expected_output = "";
 
     test_dir.test_command_success_with_args(args, expected_output);
@@ -181,7 +181,7 @@ fn quiet_no_problems() {
 fn quiet_no_files() {
     let test_dir = TestDir::new();
 
-    let args = &["--quiet"];
+    let args = &["check", "--quiet"];
     let expected_output = "";
 
     test_dir.test_command_success_with_args(args, expected_output);

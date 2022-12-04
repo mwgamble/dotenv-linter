@@ -5,7 +5,7 @@ fn check_output_in_quiet_mode() {
     let test_dir = TestDir::new();
     let testfile_to_check = test_dir.create_testfile(".env", " BAR='Baz'\n");
 
-    let args = &["--quiet"];
+    let args = &["check", "--quiet"];
     let expected_output = format!(
         "{a}:1 LeadingCharacter: Invalid leading character detected\n{a}:1 QuoteCharacter: The value has quote characters (\', \")\n",
         a=testfile_to_check.shortname_as_str()
@@ -20,7 +20,7 @@ fn check_output_for_multiple_files_in_quiet_mode() {
     let testfile_1 = test_dir.create_testfile(".env", "BAR='Baz'\n");
     let testfile_2 = test_dir.create_testfile(".env2", " BAR=\n");
 
-    let args = &["--quiet"];
+    let args = &["check", "--quiet"];
     let expected_output = format!(
         "{a}:1 QuoteCharacter: The value has quote characters (\', \")\n{b}:1 LeadingCharacter: Invalid leading character detected\n",
         a=testfile_1.shortname_as_str(),

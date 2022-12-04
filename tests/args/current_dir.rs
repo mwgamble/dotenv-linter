@@ -30,7 +30,7 @@ fn checks_current_dir_with_dot_arg() {
     let testdir = TestDir::new();
     testdir.create_testfile("test.env", "foo=\n");
 
-    let args = &["."];
+    let args = &["check", "."];
     let expected_output = check_output(&[(
         "test.env",
         &["test.env:1 LowercaseKey: The foo key should be in uppercase"],

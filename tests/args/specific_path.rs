@@ -14,7 +14,7 @@ fn checks_one_specific_path() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[subdir.as_str()];
+    let args = &["check", subdir.as_str()];
     let expected_output = check_output(&[(
         testfile_2_path,
         &[format!(
@@ -48,7 +48,7 @@ fn checks_two_specific_paths() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[subdir_1.as_str(), subdir_2.as_str()];
+    let args = &["check", subdir_1.as_str(), subdir_2.as_str()];
     let expected_output = check_output(&[
         (
             testfile_2_path,
@@ -77,7 +77,7 @@ fn checks_one_specific_file() {
     test_dir.create_testfile(".env", "foo=\n");
     let testfile_2 = test_dir.create_testfile("test-env-file", "FOO =\n");
 
-    let args = &[testfile_2.as_str()];
+    let args = &["check", testfile_2.as_str()];
     let expected_output = check_output(&[(
         testfile_2.shortname_as_str(),
         &[format!(
@@ -104,7 +104,7 @@ fn checks_two_specific_files() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[testfile_2.as_str(), testfile_3.as_str()];
+    let args = &["check", testfile_2.as_str(), testfile_3.as_str()];
     let expected_output = check_output(&[
         (
             testfile_3_path,
@@ -146,7 +146,7 @@ fn checks_each_file_only_once_when_listing_same_path_twice() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[subdir.as_str(), subdir.as_str()];
+    let args = &["check", subdir.as_str(), subdir.as_str()];
     let expected_output = check_output(&[
         (
             testfile_1_path,
@@ -187,7 +187,7 @@ fn checks_each_file_only_once_when_listing_one_path_and_one_file() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[subdir.as_str(), testfile_2.as_str()];
+    let args = &["check", subdir.as_str(), testfile_2.as_str()];
     let expected_output = check_output(&[
         (
             testfile_1_path,
@@ -224,7 +224,7 @@ fn checks_one_specific_file_and_one_path() {
         .to_str()
         .expect("multi-platform path to test .env file");
 
-    let args = &[testfile_2.as_str(), subdir.as_str()];
+    let args = &["check", testfile_2.as_str(), subdir.as_str()];
     let expected_output = check_output(&[
         (
             testfile_3_path,
@@ -253,7 +253,7 @@ fn checks_one_specific_file_twice() {
     test_dir.create_testfile(".env", "foo=");
     let testfile_2 = test_dir.create_testfile("test-env-file", "1FOO=\n");
 
-    let args = &[testfile_2.as_str(), testfile_2.as_str()];
+    let args = &["check", testfile_2.as_str(), testfile_2.as_str()];
     let expected_output = check_output(&[(
         testfile_2.shortname_as_str(),
         &[format!(
