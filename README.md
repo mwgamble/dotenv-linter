@@ -60,32 +60,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;🚀&nbsp;Can be integrated with <a href="https://github.com/reviewdog/reviewdog">reviewdog</a> and other CI services (including <a href="https://github.com/dotenv-linter/action-dotenv-linter">GitHub Actions</a> and <a href="https://github.com/github/super-linter">Super-Linter</a>) 🔥
 </p>
 
-**Articles about dotenv-linter**:
-
-- [EN] [Dotenv-linter: looking after the environment for you](https://evrone.com/dotenv-linter)
-- [EN] [What's new in dotenv-linter v2.2.0?](https://evrone.com/dotenv-linter-v220)
-- [EN] [What are the key changes in dotenv-linter v3.0.0 release?](https://evrone.com/dotenv-linter-v300)
-- [RU] [Dotenv-linter: линтер .env файлов](https://www.mgrachev.com/2020/04/20/dotenv-linter)
-- [RU] [Что нового в dotenv-linter v2.2.1?](https://evrone.ru/dotenv-linter-v220)
-- [RU] [Что нового в dotenv-linter v3.0.0?](https://evrone.ru/dotenv-linter-v300)
-
 ## 👨‍💻 Installation
 
 ### Pre-compiled binary
-
-```shell script
-# Linux / macOS / Windows (MINGW and etc). Installs it into ./bin/ by default
-$ curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s
-
-# Or a shorter way
-$ curl -sSfL https://git.io/JLbXn | sh -s
-
-# Specify installation directory and version
-$ curl -sSfL https://git.io/JLbXn | sh -s -- -b usr/local/bin v2.0.0
-
-# Alpine Linux (using wget)
-$ wget -q -O - https://git.io/JLbXn | sh -s
-```
 
 You can find other installation methods here: https://dotenv-linter.github.io/#/installation
 
@@ -144,33 +121,6 @@ Other use cases you can find on the documentation site (https://dotenv-linter.gi
 
 `dotenv-linter` can also be used with CI services such as: [GitHub Actions](https://dotenv-linter.github.io/#/integrations/github_actions) and [Circle CI](https://dotenv-linter.github.io/#/integrations/circleci).
 
-## 🚧 Benchmark
-
-Benchmarking [dotenv-linter/dotenv-linter](https://github.com/dotenv-linter/dotenv-linter) and [wemake-services/dotenv-linter](https://github.com/wemake-services/dotenv-linter) has done using the [hyperfine](https://github.com/sharkdp/hyperfine) utility:
-
-| Command                              |    Mean [ms] | Min [ms] | Max [ms] |      Relative |
-| :----------------------------------- | -----------: | -------: | -------: | ------------: |
-| `dotenv-linter/dotenv-linter .env`   |    2.7 ± 0.4 |      2.0 |      4.3 |          1.00 |
-| `wemake-services/dotenv-linter .env` | 162.6 ± 12.1 |    153.0 |    201.3 | 60.83 ± 10.20 |
-
-<details>
-<summary>Content of <code>.env</code> file used for benchmarking</summary>
-
-```dotenv
- SPACED=
-
-KEY = VALUE
-
-SECRET="my value"
-
-SECRET=Already defined
-
-kebab-case-name=1
-snake_case_name=2
-```
-
-</details>
-
 ## ✌️ Mentorship
 
 `dotenv-linter` is not just a linter for `.env` files — it is also a **contributor-friendly open-source project** with the purpose of helping others learn Rust using a simple, but useful tool. 😊
@@ -197,21 +147,6 @@ This project exists thanks to all the people who contribute. [[Contribute](/CONT
 <a href="https://github.com/dotenv-linter/dotenv-linter/graphs/contributors">
   <img src="https://opencollective.com/dotenv-linter/contributors.svg?width=890&button=false" />
 </a>
-
-## ♥️ Sponsors
-
-[dotenv-linter](https://evrone.com/dotenv-linter?utm_source=github&utm_campaign=dotenv-linter) is created & supported by [Evrone](https://evrone.com/?utm_source=github&utm_campaign=dotenv-linter). What else we develop with [Rust](https://evrone.com/rust?utm_source=github&utm_campaign=dotenv-linter).
-
-<p>
-  <a href="https://evrone.com/?utm_source=github&utm_campaign=dotenv-linter">
-    <img src="https://www.mgrachev.com/assets/static/sponsored_by_evrone.svg?sanitize=true"
-      alt="Sponsored by Evrone">
-  </a>
-</p>
-
-Become a financial contributor and help us sustain our community.
-
-<a href="https://opencollective.com/dotenv-linter"><img src="https://opencollective.com/dotenv-linter/individuals.svg?width=890"></a>
 
 ## 📃 License
 
