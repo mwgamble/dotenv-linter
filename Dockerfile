@@ -1,7 +1,7 @@
 FROM messense/rust-musl-cross:x86_64-musl as builder
 
 RUN cargo new dotenv-linter
-COPY Cargo.toml ./
+COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 
 RUN cargo build --release
