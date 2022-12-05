@@ -8,3 +8,4 @@ License
 .codecov.yml
 *.md
 LICENSE
+/target/
