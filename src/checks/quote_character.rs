@@ -57,7 +57,7 @@ mod tests {
                 ("FOO=BAR", None),
                 ("FOO='BAR'", Some(WARNING)),
                 ("FOO='B\"AR'", Some(WARNING)),
-                ("FOO=\'BAR BAR\'", None),
+                ("FOO='BAR BAR'", None),
             ],
         );
     }
